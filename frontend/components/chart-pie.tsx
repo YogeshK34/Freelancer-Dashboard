@@ -15,57 +15,62 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer } from "@/components/ui/chart";
 
 const data = [
-  { name: "Technology", value: 400 },
-  { name: "Healthcare", value: 300 },
-  { name: "Finance", value: 200 },
-  { name: "Education", value: 100 },
-];
-
-const COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
+  { name: "Technology", value: 400, color: "hsl(var(--chart-1))" },
+  { name: "Healthcare", value: 300, color: "hsl(var(--chart-2))" },
+  { name: "Finance", value: 200, color: "hsl(var(--chart-3))" },
+  { name: "Education", value: 100, color: "hsl(var(--chart-4))" },
 ];
 
 export function ChartPie() {
   return (
-    <Card>
+    <Card className="transition-all duration-300 hover:shadow-lg">
       <CardHeader>
-        <CardTitle>Client Distribution by Industry</CardTitle>
+        <CardTitle className="text-lg sm:text-xl md:text-2xl">
+          Client Distribution by Industry
+        </CardTitle>
         <CardDescription>
           Breakdown of clients across different sectors
         </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={{}} className="h-[300px]">
-          <ResponsiveContainer width="95%" height="100%">
+          <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={data}
                 cx="50%"
                 cy="50%"
-                labelLine={false}
-                outerRadius={70}
-                fill="#8884d8"
+                innerRadius={60}
+                outerRadius={80}
+                paddingAngle={5}
                 dataKey="value"
               >
                 {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
+                    fill={entry.color}
+                    stroke="hsl(var(--background))"
+                    strokeWidth={2}
                   />
                 ))}
               </Pie>
-              <Tooltip content={<ChartTooltipContent />} />
+              <Tooltip content={<CustomTooltip />} />
               <Legend
-                layout="vertical"
-                align="right"
-                verticalAlign="middle"
-                wrapperStyle={{ paddingLeft: "20px" }}
+                layout="horizontal"
+                align="center"
+                verticalAlign="bottom"
+                iconType="circle"
+                iconSize={10}
+                wrapperStyle={{
+                  paddingTop: "20px",
+                  fontSize: "12px",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
               />
             </PieChart>
           </ResponsiveContainer>
@@ -74,3 +79,16 @@ export function ChartPie() {
     </Card>
   );
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-background border border-border p-2 rounded-md shadow-md">
+        <p className="font-semibold">{payload[0].name}</p>
+        <p className="text-sm">Clients: {payload[0].value}</p>
+      </div>
+    );
+  }
+  return null;
+};

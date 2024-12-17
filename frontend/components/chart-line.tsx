@@ -38,13 +38,13 @@ export function ChartLine() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={{}} className="h-[300px]">
-          <ResponsiveContainer width="95%" height="100%">
+          <ResponsiveContainer width="80%" height="100%">
             <LineChart
               data={data}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 20, right: 30, left: 20, bottom: 25 }}
             >
-              <XAxis dataKey="month" />
-              <YAxis padding={{ top: 20 }} />
+              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+              <YAxis padding={{ top: 20 }} tick={{ fontSize: 12 }} />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Line
                 type="monotone"

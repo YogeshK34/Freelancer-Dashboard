@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Users, Briefcase, Clock, DollarSign } from "lucide-react";
+import {
+  Users,
+  Briefcase,
+  Clock,
+  DollarSign,
+  TrendingUp,
+  Target,
+  Award,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,10 +35,6 @@ export default function DashboardPage() {
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        {/* <div className="flex items-center space-x-2">
-          <Button>Download</Button>
-          <Button>Add Project</Button>
-        </div> */}
       </div>
       <Tabs
         value={activeTab}
@@ -41,7 +45,7 @@ export default function DashboardPage() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
           {/* <TabsTrigger value="projects">Projects</TabsTrigger> */}
-          {/* <TabsTrigger value="clients">Clients</TabsTrigger>  */}
+          {/* <TabsTrigger value="clients">Clients</TabsTrigger> */}
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -146,6 +150,88 @@ export default function DashboardPage() {
           </div>
         </TabsContent>
         <TabsContent value="analytics" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Average Project Value
+                  </CardTitle>
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">$8,750</div>
+                  <p className="text-xs text-muted-foreground">
+                    +5.4% from last quarter
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Client Retention Rate
+                  </CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">92%</div>
+                  <p className="text-xs text-muted-foreground">
+                    +2% from last year
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Project Completion Rate
+                  </CardTitle>
+                  <Target className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">95%</div>
+                  <p className="text-xs text-muted-foreground">
+                    +3% from last quarter
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Client Satisfaction
+                  </CardTitle>
+                  <Award className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">4.8/5</div>
+                  <p className="text-xs text-muted-foreground">
+                    Based on 150 reviews
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
             <Card className="col-span-1">
               <CardHeader>

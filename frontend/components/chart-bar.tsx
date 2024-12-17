@@ -33,13 +33,18 @@ export function ChartBar() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={{}} className="h-[300px]">
-          <ResponsiveContainer width="95%" height="100%">
+          <ResponsiveContainer width="90%" height="100%">
             <BarChart
               data={data}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 20, right: 30, left: 20, bottom: 25 }}
             >
-              <XAxis dataKey="project" />
-              <YAxis padding={{ top: 20 }} />
+              <XAxis
+                dataKey="project"
+                tick={{ fontSize: 12 }}
+                angle={-45}
+                textAnchor="end"
+              />
+              <YAxis padding={{ top: 20 }} tick={{ fontSize: 12 }} />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar dataKey="hours" fill="hsl(var(--chart-1))" />
             </BarChart>

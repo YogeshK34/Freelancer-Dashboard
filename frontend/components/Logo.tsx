@@ -24,7 +24,6 @@ export function Logo({ className = "", showText = true }: LogoProps) {
           }}
           transition={{
             duration: 2,
-            repeat: Infinity,
             repeatType: "reverse",
           }}
         />
