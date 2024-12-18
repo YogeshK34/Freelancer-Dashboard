@@ -16,6 +16,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
+import { cn } from "@/lib/utils";
+
+interface ChartPieProps {
+  className?: string;
+}
 
 const data = [
   { name: "Technology", value: 400, color: "hsl(var(--chart-1))" },
@@ -24,9 +29,11 @@ const data = [
   { name: "Education", value: 100, color: "hsl(var(--chart-4))" },
 ];
 
-export function ChartPie() {
+export function ChartPie({ className }: ChartPieProps) {
   return (
-    <Card className="transition-all duration-300 hover:shadow-lg">
+    <Card
+      className={cn("transition-all duration-300 hover:shadow-lg", className)}
+    >
       <CardHeader>
         <CardTitle className="text-lg sm:text-xl md:text-2xl">
           Client Distribution by Industry

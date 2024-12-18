@@ -14,7 +14,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <main className="flex-grow pt-4">
-        <nav className="bg-slate-700 sticky top-4 z-50 mx-auto max-w-2xl bg-background/95 px-4 py-2 backdrop-blur supports-[backdrop-filter]:bg-muted-foreground rounded-full border border-border/40">
+        <nav className="bg-slate-700 sticky top-4 z-50 mx-auto max-w-2xl bg-background/95 px-4 py-2 backdrop-blur supports-[backdrop-filter]:bg-muted rounded-full border border-border/40">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
               <Logo />

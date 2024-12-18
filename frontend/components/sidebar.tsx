@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Award,
+  Menu,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -27,7 +28,7 @@ const sidebarItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -69,7 +70,7 @@ export function Sidebar() {
           <Link className="flex items-center justify-center" href="/">
             <BarChart className="h-6 w-6 text-primary" />
             {isOpen && (
-              <span className="ml-2 text-lg font-semibold">Freelance</span>
+              <span className="ml-2 text-lg font-semibold">FreelancePro</span>
             )}
           </Link>
         </div>
@@ -98,7 +99,7 @@ export function Sidebar() {
             size="icon"
             className="fixed top-4 left-4 z-50 md:hidden"
           >
-            <BarChart className="h-4 w-4" />
+            <Menu className="h-4 w-4" />
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">

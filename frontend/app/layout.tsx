@@ -20,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="flex h-screen overflow-hidden bg-background">
+        <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-background">
           <Sidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
-            <main className="flex-1 overflow-y-auto p-6">{children}</main>
+            <main className="flex-1 overflow-y-auto p-4 md:p-6">
+              {children}
+            </main>
             <footer className="border-t p-4 text-center">
               <div className="flex justify-center space-x-4">
                 <a
@@ -31,24 +33,24 @@ export default function RootLayout({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Twitter className="h-6 w-6" />
+                  <Twitter className="h-5 w-5" />
                 </a>
                 <a
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="h-6 w-6" />
+                  <Github className="h-5 w-5" />
                 </a>
                 <a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="h-6 w-6" />
+                  <Linkedin className="h-5 w-5" />
                 </a>
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-xs md:text-sm text-muted-foreground">
                 © 2024 Freelance Dashboard. All rights reserved.
               </p>
             </footer>

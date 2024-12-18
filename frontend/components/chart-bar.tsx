@@ -14,6 +14,10 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+interface ChartBarProps {
+  className?: string;
+}
+
 const data = [
   { project: "Project A", hours: 32 },
   { project: "Project B", hours: 40 },
@@ -22,9 +26,9 @@ const data = [
   { project: "Project E", hours: 35 },
 ];
 
-export function ChartBar() {
+export function ChartBar({ className }: ChartBarProps) {
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <CardTitle>Time Tracked by Project</CardTitle>
         <CardDescription>

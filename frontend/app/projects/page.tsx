@@ -1,17 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ExternalLink,
-  Github,
-  Clock,
-  DollarSign,
-  Users,
-  Tag,
-  X,
-} from "lucide-react";
+import { ExternalLink, Github, Clock, DollarSign, Tag } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -27,10 +18,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -137,6 +127,7 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<
     (typeof projects)[0] | null
@@ -157,6 +148,7 @@ export default function ProjectsPage() {
         className="flex justify-between items-center mb-6"
       >
         <h1 className="text-3xl font-bold">Projects</h1>
+        <Button>+ New Project</Button>
       </motion.div>
 
       <motion.div
@@ -179,7 +171,7 @@ export default function ProjectsPage() {
         </Select>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence>
           {filteredProjects.map((project) => (
             <motion.div
@@ -195,7 +187,7 @@ export default function ProjectsPage() {
                   <Image
                     src={project.image}
                     alt={project.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-40 sm:h-48 object-cover"
                     width={200}
                     height={200}
                   />
@@ -271,7 +263,7 @@ export default function ProjectsPage() {
         open={!!selectedProject}
         onOpenChange={() => setSelectedProject(null)}
       >
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-3xl w-11/12 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{selectedProject?.name}</DialogTitle>
             <DialogDescription>Project Details</DialogDescription>
@@ -281,7 +273,7 @@ export default function ProjectsPage() {
               <Image
                 src={selectedProject.image}
                 alt={selectedProject.name}
-                className="w-full h-64 object-cover rounded-lg mb-4"
+                className="w-full h-40 sm:h-64 object-cover rounded-lg mb-4"
                 width={200}
                 height={200}
               />

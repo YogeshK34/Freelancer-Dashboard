@@ -29,16 +29,20 @@ const data = [
   { month: "Dec", revenue: 8500 },
 ];
 
-export function ChartLine() {
+interface ChartLineProps {
+  className?: string;
+}
+
+export function ChartLine({ className }: ChartLineProps) {
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <CardTitle>Revenue Trend</CardTitle>
         <CardDescription>Monthly revenue for the current year</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={{}} className="h-[300px]">
-          <ResponsiveContainer width="80%" height="100%">
+          <ResponsiveContainer width="90%" height="100%">
             <LineChart
               data={data}
               margin={{ top: 20, right: 30, left: 20, bottom: 25 }}

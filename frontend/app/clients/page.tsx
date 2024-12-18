@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -33,7 +34,6 @@ import {
   Briefcase,
 } from "lucide-react";
 import Image from "next/image";
-import { AnimatedTestimonialsDemo } from "@/components/testimonial-section";
 
 const clients = [
   {
@@ -43,8 +43,8 @@ const clients = [
     projectCount: 3,
     totalRevenue: 50000,
     status: "Active",
-    avatar: "https://via.placeholder.com/128?text=Avatar+Acme",
-    logo: "https://via.placeholder.com/64?text=Acme+Logo",
+    avatar: "/placeholder.svg?height=128&width=128",
+    logo: "/placeholder.svg?height=64&width=64&text=Acme",
     email: "contact@acme.com",
     phone: "+1 (555) 123-4567",
     website: "https://www.acme.com",
@@ -60,8 +60,8 @@ const clients = [
     projectCount: 2,
     totalRevenue: 35000,
     status: "Active",
-    avatar: "https://via.placeholder.com/128?text=Avatar+Global",
-    logo: "https://via.placeholder.com/64?text=Global+Logo",
+    avatar: "/placeholder.svg?height=128&width=128",
+    logo: "/placeholder.svg?height=64&width=64&text=GI",
     email: "info@globalinnovations.com",
     phone: "+1 (555) 987-6543",
     website: "https://www.globalinnovations.com",
@@ -77,8 +77,8 @@ const clients = [
     projectCount: 1,
     totalRevenue: 20000,
     status: "Inactive",
-    avatar: "https://via.placeholder.com/128?text=Avatar+Eco",
-    logo: "https://via.placeholder.com/64?text=Eco+Logo",
+    avatar: "/placeholder.svg?height=128&width=128",
+    logo: "/placeholder.svg?height=64&width=64&text=Eco",
     email: "support@ecosolutions.com",
     phone: "+1 (555) 246-8135",
     website: "https://www.ecosolutions.com",
@@ -94,8 +94,8 @@ const clients = [
     projectCount: 4,
     totalRevenue: 75000,
     status: "Active",
-    avatar: "https://via.placeholder.com/128?text=Avatar+Tech",
-    logo: "https://via.placeholder.com/64?text=Tech+Logo",
+    avatar: "/placeholder.svg?height=128&width=128",
+    logo: "/placeholder.svg?height=64&width=64&text=Tech",
     email: "hello@techstart.io",
     phone: "+1 (555) 369-2580",
     website: "https://www.techstart.io",
@@ -111,8 +111,8 @@ const clients = [
     projectCount: 2,
     totalRevenue: 40000,
     status: "Active",
-    avatar: "https://via.placeholder.com/128?text=Avatar+Medi",
-    logo: "https://via.placeholder.com/64?text=Medi+Logo",
+    avatar: "/placeholder.svg?height=128&width=128",
+    logo: "/placeholder.svg?height=64&width=64&text=Medi",
     email: "contact@medicaresolutions.com",
     phone: "+1 (555) 147-2589",
     website: "https://www.medicaresolutions.com",
@@ -120,6 +120,33 @@ const clients = [
     since: "2022-09-20",
     lastProject: "2023-11-15",
     rating: 4.6,
+  },
+];
+
+const testimonials = [
+  {
+    id: 1,
+    name: "John Doe",
+    company: "Acme Corporation",
+    testimonial:
+      "The freelance dashboard has significantly improved our project management and collaboration.",
+    avatar: "/placeholder.svg?height=128&width=128",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    company: "Global Innovations",
+    testimonial:
+      "Excellent work! The team delivered our project on time and exceeded our expectations.",
+    avatar: "/placeholder.svg?height=128&width=128",
+  },
+  {
+    id: 3,
+    name: "Mike Johnson",
+    company: "EcoSolutions",
+    testimonial:
+      "Great communication and professionalism throughout the entire project lifecycle.",
+    avatar: "/placeholder.svg?height=128&width=128",
   },
 ];
 
@@ -137,7 +164,7 @@ export default function ClientsPage() {
         Clients
       </motion.h1>
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList className="flex justify-center items-center">
+        <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="list">Client List</TabsTrigger>
           <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
@@ -198,7 +225,7 @@ export default function ClientsPage() {
                 <CardTitle>Revenue by Client</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-[400px]">
+                <div className="h-[300px] sm:h-[400px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={clients}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -214,8 +241,8 @@ export default function ClientsPage() {
           </motion.div>
         </TabsContent>
         <TabsContent value="list">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-1 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-1 space-y-6">
               <AnimatePresence>
                 {clients.map((client) => (
                   <motion.div
@@ -238,9 +265,9 @@ export default function ClientsPage() {
                           <Image
                             src={client.logo}
                             alt={`${client.name} logo`}
-                            layout="fill"
-                            objectFit="contain"
-                            className="rounded-full"
+                            width={64}
+                            height={64}
+                            className="rounded-full object-contain"
                           />
                         </div>
                         <div>
@@ -270,7 +297,7 @@ export default function ClientsPage() {
                 ))}
               </AnimatePresence>
             </div>
-            <div className="md:col-span-2">
+            <div className="lg:col-span-2">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedClient.id}
@@ -286,9 +313,9 @@ export default function ClientsPage() {
                           <Image
                             src={selectedClient.logo}
                             alt={`${selectedClient.name} logo`}
-                            layout="fill"
-                            objectFit="contain"
-                            className="rounded-full"
+                            width={80}
+                            height={80}
+                            className="rounded-full object-contain"
                           />
                         </div>
                         <div>
@@ -360,7 +387,7 @@ export default function ClientsPage() {
                       </div>
                       <div className="mt-4">
                         <h3 className="text-lg font-semibold mb-2">Projects</h3>
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           {Array.from({
                             length: selectedClient.projectCount,
                           }).map((_, index) => (
@@ -391,7 +418,40 @@ export default function ClientsPage() {
           </div>
         </TabsContent>
         <TabsContent value="testimonials">
-          <AnimatedTestimonialsDemo />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence>
+              {testimonials.map((testimonial) => (
+                <motion.div
+                  key={testimonial.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card>
+                    <CardHeader className="flex flex-row items-center gap-4">
+                      <Avatar>
+                        <AvatarImage
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                        />
+                        <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <CardTitle>{testimonial.name}</CardTitle>
+                        <CardDescription>{testimonial.company}</CardDescription>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="italic">
+                        &ldquo;{testimonial.testimonial}&rdquo;
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

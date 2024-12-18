@@ -35,20 +35,24 @@ export default function DashboardPage() {
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <div className="flex items-center space-x-2">
+          <Button>Download</Button>
+          <Button>Add Project</Button>
+        </div>
       </div>
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="space-y-4"
       >
-        <TabsList className="flex justify-center items-center">
+        <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          {/* <TabsTrigger value="projects">Projects</TabsTrigger> */}
-          {/* <TabsTrigger value="clients">Clients</TabsTrigger> */}
+          <TabsTrigger value="projects">Projects</TabsTrigger>
+          <TabsTrigger value="clients">Clients</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -130,13 +134,13 @@ export default function DashboardPage() {
               </Card>
             </motion.div>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4">
               <CardHeader>
                 <CardTitle>Revenue Overview</CardTitle>
               </CardHeader>
               <CardContent className="pl-2">
-                <ChartArea />
+                <ChartArea className="h-[300px] sm:h-[400px]" />
               </CardContent>
             </Card>
             <Card className="col-span-3">
@@ -144,13 +148,13 @@ export default function DashboardPage() {
                 <CardTitle>Project Distribution</CardTitle>
               </CardHeader>
               <CardContent>
-                <ChartPie />
+                <ChartPie className="h-[300px] sm:h-[400px]" />
               </CardContent>
             </Card>
           </div>
         </TabsContent>
         <TabsContent value="analytics" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -238,7 +242,7 @@ export default function DashboardPage() {
                 <CardTitle>Time Tracked by Project</CardTitle>
               </CardHeader>
               <CardContent>
-                <ChartBar />
+                <ChartBar className="h-[300px] sm:h-[400px]" />
               </CardContent>
             </Card>
             <Card className="col-span-1">
@@ -246,7 +250,7 @@ export default function DashboardPage() {
                 <CardTitle>Revenue Trend</CardTitle>
               </CardHeader>
               <CardContent>
-                <ChartLine />
+                <ChartLine className="h-[300px] sm:h-[400px]" />
               </CardContent>
             </Card>
           </div>
