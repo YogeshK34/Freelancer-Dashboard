@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -34,6 +33,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import Image from "next/image";
+import { AnimatedTestimonialsDemo } from "@/components/testimonial-section";
 
 const clients = [
   {
@@ -123,33 +123,6 @@ const clients = [
   },
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    name: "John Doe",
-    company: "Acme Corporation",
-    testimonial:
-      "The freelance dashboard has significantly improved our project management and collaboration.",
-    avatar: "/placeholder.svg?height=128&width=128",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    company: "Global Innovations",
-    testimonial:
-      "Excellent work! The team delivered our project on time and exceeded our expectations.",
-    avatar: "/placeholder.svg?height=128&width=128",
-  },
-  {
-    id: 3,
-    name: "Mike Johnson",
-    company: "EcoSolutions",
-    testimonial:
-      "Great communication and professionalism throughout the entire project lifecycle.",
-    avatar: "/placeholder.svg?height=128&width=128",
-  },
-];
-
 export default function ClientsPage() {
   const [selectedClient, setSelectedClient] = useState(clients[0]);
 
@@ -164,7 +137,7 @@ export default function ClientsPage() {
         Clients
       </motion.h1>
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList>
+        <TabsList className="flex justify-center items-center">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="list">Client List</TabsTrigger>
           <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
@@ -418,40 +391,7 @@ export default function ClientsPage() {
           </div>
         </TabsContent>
         <TabsContent value="testimonials">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence>
-              {testimonials.map((testimonial) => (
-                <motion.div
-                  key={testimonial.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Card>
-                    <CardHeader className="flex flex-row items-center gap-4">
-                      <Avatar>
-                        <AvatarImage
-                          src={testimonial.avatar}
-                          alt={testimonial.name}
-                        />
-                        <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <CardTitle>{testimonial.name}</CardTitle>
-                        <CardDescription>{testimonial.company}</CardDescription>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="italic">
-                        &ldquo;{testimonial.testimonial}&rdquo;
-                      </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+          <AnimatedTestimonialsDemo />
         </TabsContent>
       </Tabs>
     </div>

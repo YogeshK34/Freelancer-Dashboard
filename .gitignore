@@ -13,3 +13,5 @@ backend/.env
 # General
 .DS_Store
 *.log
+
+.supabase.ts
