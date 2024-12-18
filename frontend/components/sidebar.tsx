@@ -8,14 +8,14 @@ import {
   Briefcase,
   Users,
   Settings,
-  Menu,
-  X,
+  ChevronLeft,
+  ChevronRight,
   Award,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const sidebarItems = [
   { name: "Dashboard", href: "/dashboard", icon: BarChart },
@@ -27,7 +27,10 @@ const sidebarItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   const SidebarContent = () => (
     <ul className="space-y-2">
@@ -38,13 +41,14 @@ export function Sidebar() {
             variant="ghost"
             className={cn(
               "w-full justify-start",
-              pathname === item.href && "bg-gray-200 dark:bg-gray-700"
+              pathname === item.href && "bg-accent",
+              !isOpen && "px-2"
             )}
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsMobileOpen(false)}
           >
             <Link href={item.href}>
-              <item.icon className="mr-2 h-4 w-4" />
-              {item.name}
+              <item.icon className={cn("h-4 w-4", isOpen && "mr-2")} />
+              {isOpen && <span>{item.name}</span>}
             </Link>
           </Button>
         </li>
@@ -54,56 +58,59 @@ export function Sidebar() {
 
   return (
     <>
-      <Button
-        variant="outline"
-        size="icon"
-        className="fixed top-4 left-4 z-50 md:hidden"
-        onClick={() => setIsOpen(true)}
-      >
-        <Menu className="h-4 w-4" />
-      </Button>
-
       {/* Desktop Sidebar */}
-      <div
+      <aside
         className={cn(
-          "hidden md:flex h-screen w-64 flex-col bg-accent transition-all duration-300",
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          "hidden md:flex h-screen flex-col bg-background border-r transition-all duration-300",
+          isOpen ? "w-64" : "w-16"
         )}
       >
-        <div className="flex h-14 items-center border-b px-4">
+        <div className="flex h-14 items-center justify-between px-4 border-b">
           <Link className="flex items-center justify-center" href="/">
-            <BarChart className="h-6 w-6 text-blue-500" />
-            <span className="ml-2 text-lg font-semibold">
-              Freelance Dashboard
-            </span>
+            <BarChart className="h-6 w-6 text-primary" />
+            {isOpen && (
+              <span className="ml-2 text-lg font-semibold">Freelance</span>
+            )}
           </Link>
         </div>
         <nav className="flex-1 overflow-y-auto p-4">
           <SidebarContent />
         </nav>
-      </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="m-4"
+          onClick={toggleSidebar}
+        >
+          {isOpen ? (
+            <ChevronLeft className="h-4 w-4" />
+          ) : (
+            <ChevronRight className="h-4 w-4" />
+          )}
+        </Button>
+      </aside>
 
       {/* Mobile Sidebar */}
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className="fixed top-4 left-4 z-50 md:hidden"
+          >
+            <BarChart className="h-4 w-4" />
+          </Button>
+        </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
           <div className="flex h-14 items-center border-b px-4">
             <Link
               className="flex items-center justify-center"
               href="/"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsMobileOpen(false)}
             >
-              <BarChart className="h-6 w-6 text-blue-500" />
-              <span className="ml-2 text-lg font-semibold">
-                Freelance Dashboard
-              </span>
+              <BarChart className="h-6 w-6 text-primary" />
+              <span className="ml-2 text-lg font-semibold">FreelancePro</span>
             </Link>
-            <Button
-              variant="ghost"
-              className="ml-auto"
-              onClick={() => setIsOpen(false)}
-            >
-              <X className="h-6 w-6" />
-            </Button>
           </div>
           <nav className="flex-1 overflow-y-auto p-4">
             <SidebarContent />
