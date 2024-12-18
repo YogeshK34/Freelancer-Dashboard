@@ -1,55 +1,28 @@
-"use client";
 import { motion } from "framer-motion";
-import { CircleDollarSign } from "lucide-react";
 
-interface LogoProps {
-  className?: string;
-  showText?: boolean;
-}
-
-export function Logo({ className = "", showText = true }: LogoProps) {
+export function Logo() {
   return (
-    <motion.div
-      className={`flex items-center gap-2 ${className}`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="relative">
-        <motion.div
-          className="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-lg blur-xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 0.8, 0.5],
-          }}
-          transition={{
-            duration: 2,
-            repeatType: "reverse",
-          }}
+    <div className="flex items-center space-x-2">
+      <motion.svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
+        <rect width="40" height="40" rx="8" fill="currentColor" />
+        <path
+          d="M20 8L28 12V20C28 25.6 24.6 30.4 20 32C15.4 30.4 12 25.6 12 20V12L20 8Z"
+          fill="white"
         />
-        <motion.div
-          className="relative bg-gradient-to-br from-primary to-primary/80 dark:from-primary/90 dark:to-primary/70 p-2 rounded-lg"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <CircleDollarSign className="w-6 h-6 text-primary-foreground dark:text-white" />
-        </motion.div>
-      </div>
-      {showText && (
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex flex-col items-start"
-        >
-          <span className="text-xl font-bold tracking-tight text-foreground dark:text-white">
-            TrackIt
-          </span>
-          <span className="text-xs text-muted-foreground dark:text-gray-400">
-            Smart Finance
-          </span>
-        </motion.div>
-      )}
-    </motion.div>
+        <path
+          d="M18 22L16 20L17.4 18.6L18 19.2L20.6 16.6L22 18L18 22Z"
+          fill="currentColor"
+        />
+      </motion.svg>
+      <span className="text-xl font-bold">FreelancePro</span>
+    </div>
   );
 }
