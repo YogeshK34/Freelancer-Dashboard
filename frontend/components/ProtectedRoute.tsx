@@ -14,7 +14,9 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const checkAuth = async () => {
       if (!user) {
-        router.push("/auth");
+        setTimeout(() => {
+          router.replace("/auth");
+        }, 100); // Small delay to ensure auth state is updated
         return;
       }
 
@@ -28,9 +30,10 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
         if (error) throw error;
 
+        // Uncomment and modify this section if you want to redirect to settings when email is missing
         // if (!data.email) {
         //   if (window.location.pathname !== "/settings") {
-        //     router.push("/settings");
+        //     router.replace("/settings");
         //   }
         // }
       } catch (error) {
@@ -51,5 +54,5 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return <>{children}</>;
+  return user ? <>{children}</> : null;
 }

@@ -5,35 +5,14 @@ import { useRouter } from "next/navigation";
 import { SignUp } from "@/components/SignUp";
 import { Login } from "@/components/Login";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/lib/supabase";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const { user } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      (event, session) => {
-        if (event === "SIGNED_IN") {
-          router.push("/dashboard");
-        }
-      }
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [router]);
 
   useEffect(() => {
     if (user) {
@@ -46,19 +25,21 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>{isLogin ? "Login" : "Sign Up"}</CardTitle>
-          <CardDescription>
-            {isLogin
-              ? "Enter your credentials to access your account"
-              : "Create a new account to get started"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isLogin ? <Login /> : <SignUp />}
-          <div className="mt-4 text-center">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary/20 to-secondary/20">
+      <Card className="w-full max-w-md">
+        <CardContent className="p-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isLogin ? "login" : "signup"}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isLogin ? <Login /> : <SignUp />}
+            </motion.div>
+          </AnimatePresence>
+          <div className="mt-6 text-center">
             <Button variant="link" onClick={() => setIsLogin(!isLogin)}>
               {isLogin
                 ? "Don't have an account? Sign up"
