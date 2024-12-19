@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Loader2 } from "lucide-react";
 
 interface UserSettings {
   full_name: string;
@@ -47,6 +48,8 @@ export default function SettingsPage() {
     avatar_url: "",
     background_image_url: "",
   });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
@@ -85,11 +88,14 @@ export default function SettingsPage() {
         description: "Failed to fetch user settings",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   }
 
   async function updateSettings(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSaving(true);
 
     if (!user) {
       toast({
@@ -97,6 +103,7 @@ export default function SettingsPage() {
         description: "User not found",
         variant: "destructive",
       });
+      setSaving(false);
       return;
     }
 
@@ -122,7 +129,17 @@ export default function SettingsPage() {
         description: "Failed to update settings",
         variant: "destructive",
       });
+    } finally {
+      setSaving(false);
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -215,7 +232,8 @@ export default function SettingsPage() {
                       ...settings,
                       skills: e.target.value
                         .split(",")
-                        .map((skill) => skill.trim()),
+                        .map((skill) => skill.trim())
+                        .filter(Boolean),
                     })
                   }
                 />
@@ -229,7 +247,7 @@ export default function SettingsPage() {
                   onChange={(e) =>
                     setSettings({
                       ...settings,
-                      hourly_rate: parseFloat(e.target.value),
+                      hourly_rate: parseFloat(e.target.value) || 0,
                     })
                   }
                 />
@@ -274,7 +292,16 @@ export default function SettingsPage() {
                   placeholder="https://example.com/your-background.jpg"
                 />
               </div>
-              <Button type="submit">Save Settings</Button>
+              <Button type="submit" disabled={saving}>
+                {saving ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  "Save Settings"
+                )}
+              </Button>
             </form>
           </CardContent>
         </Card>

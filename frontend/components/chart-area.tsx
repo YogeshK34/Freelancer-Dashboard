@@ -39,7 +39,7 @@ export function ChartArea({ className }: ChartAreaProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={{}} className="h-[300px]">
+        <ChartContainer config={{}} className="h-[300px] sm:h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={data}

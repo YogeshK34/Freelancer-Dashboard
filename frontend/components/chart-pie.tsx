@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -43,7 +44,7 @@ export function ChartPie({ className }: ChartPieProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={{}} className="h-[300px]">
+        <ChartContainer config={{}} className="h-[300px] sm:h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -87,7 +88,6 @@ export function ChartPie({ className }: ChartPieProps) {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (

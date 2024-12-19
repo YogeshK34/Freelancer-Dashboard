@@ -1,139 +1,114 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/contexts/AuthContext";
-import { STRIPE_PRICE_IDS } from "@/lib/stripe";
+import { Check } from "lucide-react";
 
 const plans = [
   {
-    name: "Basic",
-    price: 9.99,
-    features: ["1 project", "Basic analytics", "Email support"],
-    stripePriceId: STRIPE_PRICE_IDS.BASIC,
+    name: "Free",
+    price: "$0",
+    description: "Perfect for getting started",
+    features: [
+      "Basic expense tracking",
+      "Up to 2 bank accounts",
+      "Monthly reports",
+      "Basic budgeting tools",
+    ],
   },
   {
     name: "Pro",
-    price: 19.99,
+    price: "$9.99",
+    description: "For serious money managers",
     features: [
-      "5 projects",
+      "Everything in Free",
+      "Unlimited bank accounts",
       "Advanced analytics",
+      "Custom categories",
       "Priority support",
-      "Custom reporting",
     ],
-    stripePriceId: STRIPE_PRICE_IDS.PRO,
+    popular: true,
   },
   {
     name: "Enterprise",
-    price: 49.99,
+    price: "Custom",
+    description: "For teams and businesses",
     features: [
-      "Unlimited projects",
-      "Full analytics suite",
-      "24/7 phone support",
-      "Dedicated account manager",
+      "Everything in Pro",
+      "Team collaboration",
+      "API access",
+      "Custom integration",
+      "Dedicated support",
     ],
-    stripePriceId: STRIPE_PRICE_IDS.ENTERPRISE,
   },
 ];
 
 export default function PricingPage() {
-  const [loading, setLoading] = useState<string | null>(null);
-  const router = useRouter();
-  const { user } = useAuth();
-  const { toast } = useToast();
-
-  const handleSubscribe = async (stripePriceId: string) => {
-    if (!user) {
-      toast({
-        title: "Error",
-        description: "You must be logged in to subscribe",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setLoading(stripePriceId);
-
-    try {
-      const response = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          priceId: stripePriceId,
-          userId: user.id,
-        }),
-      });
-
-      const session = await response.json();
-
-      if (session.url) {
-        router.push(session.url);
-      } else {
-        throw new Error("Failed to create checkout session");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      toast({
-        title: "Error",
-        description: "Failed to initiate checkout. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(null);
-    }
-  };
-
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold text-center mb-10">Choose Your Plan</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {plans.map((plan, index) => (
-          <motion.div
-            key={plan.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <Card className="flex flex-col h-full">
-              <CardHeader>
-                <CardTitle>{plan.name}</CardTitle>
-                <CardDescription>${plan.price}/month</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <ul className="list-disc list-inside space-y-2">
-                  {plan.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  className="w-full"
-                  onClick={() => handleSubscribe(plan.stripePriceId)}
-                  disabled={loading === plan.stripePriceId}
-                >
-                  {loading === plan.stripePriceId
-                    ? "Processing..."
-                    : "Subscribe"}
-                </Button>
-              </CardFooter>
-            </Card>
-          </motion.div>
-        ))}
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl font-bold mb-4">
+            Simple, Transparent Pricing
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Choose the plan that best fits your needs
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={plan.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className={`relative bg-background rounded-xl p-8 shadow-lg border ${
+                plan.popular
+                  ? "border-primary scale-105 md:scale-110"
+                  : "border-border/50"
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="bg-primary text-primary-foreground text-sm font-medium px-3 py-1 rounded-full">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                <div className="text-4xl font-bold mb-2">{plan.price}</div>
+                <p className="text-muted-foreground">{plan.description}</p>
+              </div>
+
+              <ul className="space-y-4 mb-8">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-center">
+                    <Check className="w-5 h-5 text-primary mr-2 flex-shrink-0" />
+                    <span className="text-muted-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                className={`w-full ${
+                  plan.popular ? "bg-primary" : "bg-primary/10 text-primary"
+                }`}
+                variant={plan.popular ? "default" : "outline"}
+              >
+                Get Started
+              </Button>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

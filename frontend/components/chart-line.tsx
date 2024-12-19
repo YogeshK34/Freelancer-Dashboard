@@ -41,8 +41,8 @@ export function ChartLine({ className }: ChartLineProps) {
         <CardDescription>Monthly revenue for the current year</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={{}} className="h-[300px]">
-          <ResponsiveContainer width="90%" height="100%">
+        <ChartContainer config={{}} className="h-[300px] sm:h-[400px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
               margin={{ top: 20, right: 30, left: 20, bottom: 25 }}

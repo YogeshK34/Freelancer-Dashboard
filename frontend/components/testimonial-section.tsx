@@ -13,7 +13,7 @@ export function AnimatedTestimonialsDemo() {
       quote:
         "The intuitive design made budgeting a breeze. I finally feel in control of my finances thanks to this app.",
       name: "Tyler Durden",
-      designation: "CTO at Fig**Cl**",
+      designation: "CTO designationat Fig**Cl**",
       src: "https://wallpapercave.com/wp/wp2657416.jpg",
     },
     {

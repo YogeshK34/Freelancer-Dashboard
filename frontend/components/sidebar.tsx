@@ -21,7 +21,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
@@ -33,7 +32,6 @@ const sidebarItems = [
   { name: "Clients", href: "/clients", icon: Users },
   { name: "Settings", href: "/settings", icon: Settings },
   { name: "Profile", href: "/profile", icon: User },
-  { name: "Subscription", href: "/subscription", icon: CreditCard },
 ];
 
 export function Sidebar() {
