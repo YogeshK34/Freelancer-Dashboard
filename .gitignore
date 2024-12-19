@@ -15,4 +15,4 @@ backend/.env
 *.log
 
 .supabase.ts
-.env
+.env.local
