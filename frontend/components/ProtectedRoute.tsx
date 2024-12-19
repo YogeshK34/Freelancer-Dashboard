@@ -19,6 +19,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
       }
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { data, error } = await supabase
           .from("profiles")
           .select("full_name, email")
@@ -27,11 +28,11 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
         if (error) throw error;
 
-        if (!data.email) {
-          if (window.location.pathname !== "/settings") {
-            router.push("/settings");
-          }
-        }
+        // if (!data.email) {
+        //   if (window.location.pathname !== "/settings") {
+        //     router.push("/settings");
+        //   }
+        // }
       } catch (error) {
         console.error("Error checking profile:", error);
       } finally {
