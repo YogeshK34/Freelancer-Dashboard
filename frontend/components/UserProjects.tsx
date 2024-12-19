@@ -45,6 +45,7 @@ export function UserProjects({ userId }: UserProjectsProps) {
 
   useEffect(() => {
     fetchProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   async function fetchProjects() {

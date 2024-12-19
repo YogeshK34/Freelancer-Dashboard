@@ -80,6 +80,7 @@ export default function ProjectsPage() {
     if (user) {
       fetchProjects();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   async function fetchProjects() {
