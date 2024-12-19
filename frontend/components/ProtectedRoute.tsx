@@ -27,7 +27,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
         if (error) throw error;
 
-        if (!data.full_name || !data.email) {
+        if (!data.email) {
           if (window.location.pathname !== "/settings") {
             router.push("/settings");
           }
