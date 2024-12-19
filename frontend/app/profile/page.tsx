@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -52,6 +52,7 @@ export default function ProfilePage() {
     if (user) {
       fetchSettings();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   async function fetchSettings() {
@@ -67,7 +68,6 @@ export default function ProfilePage() {
       if (data) {
         setSettings(data);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
         title: "Error",
@@ -122,8 +122,9 @@ export default function ProfilePage() {
                   "/placeholder.svg?height=128&width=512&text=Background"
                 }
                 alt="Profile background"
-                layout="fill"
-                objectFit="cover"
+                width={512}
+                height={128}
+                className="object-cover w-full h-full"
               />
             </div>
             <CardHeader className="relative">

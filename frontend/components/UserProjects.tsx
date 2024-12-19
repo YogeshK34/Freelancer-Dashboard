@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -59,7 +60,6 @@ export function UserProjects({ userId }: UserProjectsProps) {
       if (error) throw error;
 
       setProjects(data || []);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
         title: "Error",
@@ -132,7 +132,10 @@ function ProjectCard({ project }: { project: Project }) {
       <Card className="h-full flex flex-col">
         <CardHeader className="relative p-0">
           <Image
-            src={project.image || "/placeholder.svg?height=100&width=200"}
+            src={
+              project.image ||
+              "/placeholder.svg?height=100&width=200&text=Project"
+            }
             alt={project.name}
             width={200}
             height={100}

@@ -418,6 +418,7 @@ export function ProjectForm({
               onChange={(e) =>
                 setNewProject({ ...newProject, image: e.target.value })
               }
+              placeholder="https://example.com/your-project-image.jpg"
             />
           </div>
           <div>
