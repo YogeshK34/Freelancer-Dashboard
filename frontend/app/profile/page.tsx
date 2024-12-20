@@ -40,6 +40,8 @@ interface UserSettings {
   availability: string;
   avatar_url: string;
   background_image_url: string;
+  uploaded_avatar_path: string | null;
+  uploaded_background_path: string | null;
 }
 
 export default function ProfilePage() {
@@ -52,7 +54,6 @@ export default function ProfilePage() {
     if (user) {
       fetchSettings();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   async function fetchSettings() {
@@ -106,6 +107,16 @@ export default function ProfilePage() {
     );
   }
 
+  const avatarSrc = settings.uploaded_avatar_path
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${settings.uploaded_avatar_path}`
+    : settings.avatar_url ||
+      "/placeholder.svg?height=128&width=128&text=Avatar";
+
+  const backgroundSrc = settings.uploaded_background_path
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${settings.uploaded_background_path}`
+    : settings.background_image_url ||
+      "/placeholder.svg?height=200&width=1024&text=Background";
+
   return (
     <ProtectedRoute>
       <div className="container mx-auto py-10">
@@ -117,26 +128,22 @@ export default function ProfilePage() {
           <Card className="overflow-hidden">
             <div className="relative h-32 overflow-hidden">
               <Image
-                src={
-                  settings.background_image_url ||
-                  "/placeholder.svg?height=128&width=512&text=Background"
-                }
+                src={backgroundSrc}
                 alt="Profile background"
-                width={512}
-                height={128}
+                width={1024}
+                height={200}
+                quality={100}
                 className="object-cover w-full h-full"
               />
             </div>
             <CardHeader className="relative">
               <div className="absolute -top-16 left-4">
                 <Image
-                  src={
-                    settings.avatar_url ||
-                    "/placeholder.svg?height=128&width=128&text=Avatar"
-                  }
+                  src={avatarSrc}
                   alt={settings.full_name}
                   width={128}
                   height={128}
+                  quality={100}
                   className="rounded-full border-4 border-white"
                 />
               </div>

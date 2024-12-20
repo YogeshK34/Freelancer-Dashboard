@@ -19,7 +19,7 @@ export function HeroSection() {
               Empower Your Freelance Career
             </motion.h1>
             <motion.p
-              className="text-xl mb-8 text-muted-foreground"
+              className="text-xl mb-8 text-gray-300"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -33,7 +33,7 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <Button asChild size="lg" className="mr-4">
-                <Link href="/signup">
+                <Link href="/auth">
                   Get Started <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -49,13 +49,13 @@ export function HeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-foreground rounded-lg transform rotate-3"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg transform rotate-3"></div>
               <Image
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-                alt="Freelancer working on laptop"
-                width={600}
-                height={400}
+                src="/dashboard-preview.png"
+                alt="FreelancePro Dashboard Preview"
                 className="relative z-10 rounded-lg shadow-2xl"
+                width={200}
+                height={200}
               />
             </motion.div>
           </div>

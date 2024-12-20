@@ -33,7 +33,7 @@ export function FloatingCTA() {
             size="lg"
             className="group shadow-lg bg-primary text-primary-foreground hover:bg-primary/90"
             onClick={() => {
-              router.push("/signup");
+              router.push("/auth");
             }}
           >
             Start Freelancing

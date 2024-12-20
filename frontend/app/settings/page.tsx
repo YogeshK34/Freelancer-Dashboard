@@ -18,7 +18,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { Loader2 } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
+import Image from "next/image";
 
 interface UserSettings {
   full_name: string;
@@ -32,6 +33,8 @@ interface UserSettings {
   availability: string;
   avatar_url: string;
   background_image_url: string;
+  uploaded_avatar_path: string | null;
+  uploaded_background_path: string | null;
 }
 
 export default function SettingsPage() {
@@ -47,9 +50,13 @@ export default function SettingsPage() {
     availability: "",
     avatar_url: "",
     background_image_url: "",
+    uploaded_avatar_path: null,
+    uploaded_background_path: null,
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [backgroundFile, setBackgroundFile] = useState<File | null>(null);
   const { user } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
@@ -58,7 +65,6 @@ export default function SettingsPage() {
     if (user) {
       fetchSettings();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   async function fetchSettings() {
@@ -81,7 +87,10 @@ export default function SettingsPage() {
       if (error) throw error;
 
       if (data) {
-        setSettings(data);
+        setSettings({
+          ...data,
+          skills: data.skills || [],
+        });
       }
     } catch (error) {
       toast({
@@ -92,6 +101,22 @@ export default function SettingsPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function uploadImage(file: File, path: string) {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${path}/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("images")
+      .upload(filePath, file);
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    return filePath;
   }
 
   async function updateSettings(event: React.FormEvent<HTMLFormElement>) {
@@ -109,9 +134,22 @@ export default function SettingsPage() {
     }
 
     try {
+      let avatarPath = settings.uploaded_avatar_path;
+      let backgroundPath = settings.uploaded_background_path;
+
+      if (avatarFile) {
+        avatarPath = await uploadImage(avatarFile, "avatars");
+      }
+
+      if (backgroundFile) {
+        backgroundPath = await uploadImage(backgroundFile, "backgrounds");
+      }
+
       const { error } = await supabase.from("profiles").upsert({
         id: user.id,
         ...settings,
+        uploaded_avatar_path: avatarPath,
+        uploaded_background_path: backgroundPath,
         updated_at: new Date().toISOString(),
       });
 
@@ -122,7 +160,6 @@ export default function SettingsPage() {
         description: "Settings updated successfully",
       });
 
-      // Redirect to profile page after successful update
       router.push("/profile");
     } catch (error) {
       toast({
@@ -227,7 +264,7 @@ export default function SettingsPage() {
                 <Label htmlFor="skills">Skills (comma-separated)</Label>
                 <Input
                   id="skills"
-                  value={settings.skills.join(", ")}
+                  value={settings.skills?.join(", ") ?? ""}
                   onChange={(e) =>
                     setSettings({
                       ...settings,
@@ -277,6 +314,26 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
+                <Label htmlFor="avatar_upload">Upload Avatar</Label>
+                <Input
+                  id="avatar_upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+                />
+                {settings.uploaded_avatar_path && (
+                  <div className="mt-2">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${settings.uploaded_avatar_path}`}
+                      alt="Uploaded Avatar"
+                      width={100}
+                      height={100}
+                      className="rounded-full"
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
                 <Label htmlFor="background_image_url">
                   Background Image URL
                 </Label>
@@ -293,6 +350,30 @@ export default function SettingsPage() {
                   placeholder="https://example.com/your-background.jpg"
                 />
               </div>
+              <div>
+                <Label htmlFor="background_upload">
+                  Upload Background Image
+                </Label>
+                <Input
+                  id="background_upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) =>
+                    setBackgroundFile(e.target.files?.[0] || null)
+                  }
+                />
+                {settings.uploaded_background_path && (
+                  <div className="mt-2">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${settings.uploaded_background_path}`}
+                      alt="Uploaded Background"
+                      width={200}
+                      height={100}
+                      className="rounded"
+                    />
+                  </div>
+                )}
+              </div>
               <Button type="submit" disabled={saving}>
                 {saving ? (
                   <>
@@ -300,7 +381,10 @@ export default function SettingsPage() {
                     Saving...
                   </>
                 ) : (
-                  "Save Settings"
+                  <>
+                    <Upload className="mr-2 h-4 w-4" />
+                    Save Settings
+                  </>
                 )}
               </Button>
             </form>

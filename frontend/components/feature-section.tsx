@@ -1,14 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Fingerprint,
-  Zap,
-  Sparkles,
-  Lightbulb,
-  Puzzle,
-  Glasses,
-} from "lucide-react";
+import { Zap, Target, Layers, Repeat, BarChart, Users } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -17,48 +10,45 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const uniqueFeatures = [
-  {
-    icon: Fingerprint,
-    title: "AI-Powered Client Matching",
-    description:
-      "Our advanced AI algorithm matches you with clients based on your skills, experience, and preferences.",
-  },
+const features = [
   {
     icon: Zap,
-    title: "Smart Contract Generation",
-    description:
-      "Automatically generate legally-binding contracts tailored to your specific project requirements.",
+    title: "Automated Workflows",
+    description: "Streamline your processes with intelligent automation tools.",
   },
   {
-    icon: Sparkles,
-    title: "Dynamic Pricing Optimizer",
+    icon: Target,
+    title: "Goal Tracking",
     description:
-      "Maximize your earnings with our real-time pricing suggestions based on market trends and your expertise.",
+      "Set, monitor, and achieve your freelance business objectives.",
   },
   {
-    icon: Lightbulb,
-    title: "Skill Gap Analyzer",
-    description:
-      "Identify and bridge skill gaps with personalized learning recommendations to stay competitive.",
+    icon: Layers,
+    title: "Project Templates",
+    description: "Kickstart projects quickly with customizable templates.",
   },
   {
-    icon: Puzzle,
-    title: "Cross-Platform Project Sync",
+    icon: Repeat,
+    title: "Recurring Tasks",
     description:
-      "Seamlessly sync your projects across multiple platforms and tools for unified project management.",
+      "Easily manage repetitive work with scheduled recurring tasks.",
   },
   {
-    icon: Glasses,
-    title: "Virtual Co-working Spaces",
+    icon: BarChart,
+    title: "Advanced Analytics",
+    description: "Gain deep insights into your productivity and earnings.",
+  },
+  {
+    icon: Users,
+    title: "Team Collaboration",
     description:
-      "Collaborate in immersive virtual environments designed to boost productivity and networking.",
+      "Seamlessly work with other freelancers or clients on projects.",
   },
 ];
 
-export function UniqueFeatures() {
+export function FeatureSection() {
   return (
-    <section id="unique-features" className="py-20 bg-muted">
+    <section id="features" className="py-20 bg-muted">
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-center mb-12"
@@ -66,10 +56,10 @@ export function UniqueFeatures() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Innovative Features for Modern Freelancers
+          Powerful Features for Modern Freelancers
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {uniqueFeatures.map((feature, index) => (
+          {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}

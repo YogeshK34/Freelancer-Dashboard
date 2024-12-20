@@ -3,11 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { HeroSection } from "@/components/hero-section";
-import { UniqueFeatures } from "@/components/feature-section";
-import { AnimatedTestimonialsDemo } from "@/components/testimonial-section";
-import { Pricing } from "@/components/pricing";
 import { FloatingCTA } from "@/components/FloatingCTA";
-import { WorkflowSection } from "@/components/workflow-section";
 import { IntegrationSection } from "@/components/integration-section";
 
 export default function LandingPage() {
@@ -45,12 +41,7 @@ export default function LandingPage() {
           </div>
         </nav>
         <HeroSection />
-        <UniqueFeatures />
-        <UniqueFeatures />
-        <WorkflowSection />
-        <AnimatedTestimonialsDemo />
         <IntegrationSection />
-        <Pricing />
       </main>
 
       <footer className="border-t border-border/40 bg-muted">

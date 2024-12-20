@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -80,7 +79,6 @@ export default function ProjectsPage() {
     if (user) {
       fetchProjects();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   async function fetchProjects() {
@@ -163,12 +161,14 @@ export default function ProjectsPage() {
                   <CardHeader className="relative p-0">
                     <Image
                       src={
-                        project.image || "/placeholder.svg?height=200&width=300"
+                        project.image ||
+                        "/placeholder.svg?height=200&width=400&text=Project"
                       }
                       alt={project.name}
-                      className="w-full h-40 sm:h-48 object-cover"
-                      width={300}
-                      height={200}
+                      className="w-full h-48 sm:h-64 object-cover rounded-t-lg"
+                      width={400}
+                      height={300}
+                      quality={100}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                       <Button
@@ -254,12 +254,13 @@ export default function ProjectsPage() {
                 <Image
                   src={
                     selectedProject.image ||
-                    "/placeholder.svg?height=200&width=300"
+                    "/placeholder.svg?height=300&width=400&text=Project"
                   }
                   alt={selectedProject.name}
                   className="w-full h-40 sm:h-64 object-cover rounded-lg mb-4"
-                  width={300}
-                  height={200}
+                  width={400}
+                  height={300}
+                  quality={100}
                 />
                 <p className="text-lg mb-4">{selectedProject.description}</p>
                 <div className="grid grid-cols-2 gap-4 mb-4">
@@ -325,7 +326,7 @@ export default function ProjectsPage() {
         <ProjectForm
           open={showForm}
           onOpenChange={setShowForm}
-          onProjectCreated={(newProject: any) => {
+          onProjectCreated={(newProject) => {
             setProjects([newProject, ...projects]);
             setShowForm(false);
           }}

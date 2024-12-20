@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-// import Image from 'next/image'
+import { Card, CardContent } from "@/components/ui/card";
 
 const integrations = [
   {
@@ -82,30 +82,64 @@ const integrations = [
       </svg>
     ),
   },
+  {
+    name: "Zoom",
+    logo: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-12 h-12"
+      >
+        <path d="M24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zm-6.219-3.735c-1.863-1.677-4.282-2.677-6.781-2.677-2.5 0-4.919 1-6.781 2.677-.307.277-.307.747 0 1.024 1.862 1.677 4.281 2.677 6.781 2.677 2.499 0 4.918-1 6.781-2.677.307-.277.307-.747 0-1.024zm-6.781 1.677c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2z" />
+      </svg>
+    ),
+  },
+  {
+    name: "Stripe",
+    logo: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-12 h-12"
+      >
+        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z" />
+      </svg>
+    ),
+  },
 ];
 
 export function IntegrationSection() {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold text-center mb-12"
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="text-center mb-12"
         >
-          Seamless Integrations
-        </motion.h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+          <h2 className="text-3xl font-bold mb-4">Seamless Integrations</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Connect FreelancePro with your favorite tools and services to
+            streamline your workflow.
+          </p>
+        </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {integrations.map((integration, index) => (
             <motion.div
               key={integration.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex items-center justify-center p-4 bg-muted rounded-lg"
             >
-              {integration.logo}
+              <Card className="hover:shadow-lg transition-shadow duration-300">
+                <CardContent className="flex flex-col items-center justify-center p-6">
+                  <div className="mb-4 text-primary">{integration.logo}</div>
+                  <h3 className="text-lg font-semibold">{integration.name}</h3>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
