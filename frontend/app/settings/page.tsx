@@ -65,6 +65,7 @@ export default function SettingsPage() {
     if (user) {
       fetchSettings();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   async function fetchSettings() {
