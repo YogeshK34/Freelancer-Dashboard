@@ -12,12 +12,12 @@ import { Bar, BarChart, XAxis } from "recharts";
 import { useChartTheme } from "./chart-theme-provider";
 
 const data = [
-  { day: "Mon", running: 450, swimming: 300 },
-  { day: "Tue", running: 320, swimming: 150 },
-  { day: "Wed", running: 520, swimming: 120 },
-  { day: "Thu", running: 400, swimming: 350 },
-  { day: "Fri", running: 600, swimming: 350 },
-  { day: "Sat", running: 480, swimming: 400 },
+  { day: "Mon", coding: 450, designing: 300 },
+  { day: "Tue", coding: 320, designing: 150 },
+  { day: "Wed", coding: 520, designing: 120 },
+  { day: "Thu", coding: 400, designing: 350 },
+  { day: "Fri", coding: 600, designing: 350 },
+  { day: "Sat", coding: 480, designing: 400 },
 ];
 
 export function TooltipChartDemo() {
@@ -37,12 +37,12 @@ export function TooltipChartDemo() {
       <CardContent>
         <ChartContainer
           config={{
-            running: {
-              label: "Running",
+            coding: {
+              label: "coding",
               color: colors.primary,
             },
-            swimming: {
-              label: "Swimming",
+            designing: {
+              label: "designing",
               color: colors.secondary,
             },
           }}
@@ -51,13 +51,13 @@ export function TooltipChartDemo() {
             <XAxis dataKey="day" stroke={colors.muted} />
             <ChartTooltip />
             <Bar
-              dataKey="running"
+              dataKey="coding"
               fill={colors.primary}
               stackId="a"
               radius={[4, 4, 0, 0]}
             />
             <Bar
-              dataKey="swimming"
+              dataKey="designing"
               fill={colors.secondary}
               stackId="a"
               radius={[4, 4, 0, 0]}

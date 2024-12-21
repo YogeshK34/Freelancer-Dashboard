@@ -315,26 +315,6 @@ export default function SettingsPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="avatar_upload">Upload Avatar</Label>
-                <Input
-                  id="avatar_upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
-                />
-                {settings.uploaded_avatar_path && (
-                  <div className="mt-2">
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${settings.uploaded_avatar_path}`}
-                      alt="Uploaded Avatar"
-                      width={100}
-                      height={100}
-                      className="rounded-full"
-                    />
-                  </div>
-                )}
-              </div>
-              <div>
                 <Label htmlFor="background_image_url">
                   Background Image URL
                 </Label>
@@ -350,30 +330,6 @@ export default function SettingsPage() {
                   }
                   placeholder="https://example.com/your-background.jpg"
                 />
-              </div>
-              <div>
-                <Label htmlFor="background_upload">
-                  Upload Background Image
-                </Label>
-                <Input
-                  id="background_upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) =>
-                    setBackgroundFile(e.target.files?.[0] || null)
-                  }
-                />
-                {settings.uploaded_background_path && (
-                  <div className="mt-2">
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${settings.uploaded_background_path}`}
-                      alt="Uploaded Background"
-                      width={200}
-                      height={100}
-                      className="rounded"
-                    />
-                  </div>
-                )}
               </div>
               <Button type="submit" disabled={saving}>
                 {saving ? (

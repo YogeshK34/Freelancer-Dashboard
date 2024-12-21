@@ -24,8 +24,6 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadarChartDemo } from "@/components/dashboard/radar-chart";
 import { TooltipChartDemo } from "@/components/dashboard/tooltip-chart";
-import { BrowserChartDemo } from "@/components/dashboard/browser-chart";
-import { DonutChartDemo } from "@/components/dashboard/donut-chart";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useAuth } from "@/contexts/AuthContext";
 import { ChartThemeProvider } from "@/components/dashboard/chart-theme-provider";
@@ -146,10 +144,6 @@ export default function DashboardPage() {
               <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
                 <RadarChartDemo />
                 <TooltipChartDemo />
-              </div>
-              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                <BrowserChartDemo />
-                <DonutChartDemo />
               </div>
             </TabsContent>
             <TabsContent value="analytics" className="space-y-4">

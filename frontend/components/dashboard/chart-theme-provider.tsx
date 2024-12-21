@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 type Theme = "light" | "dark" | "sapphire" | "emerald" | "palette" | "midnight";
 
@@ -77,17 +77,23 @@ const themes = {
   },
 };
 
-export function ChartThemeProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const getColors = (theme: Theme) => themes[theme];
+
+interface ChartThemeProviderProps {
+  children: ReactNode;
+}
+
+export function ChartThemeProvider({ children }: ChartThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>("light");
 
-  const getColors = () => themes[theme];
+  const contextValue: ThemeContextType = {
+    theme,
+    setTheme,
+    getColors: () => getColors(theme),
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, getColors }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );

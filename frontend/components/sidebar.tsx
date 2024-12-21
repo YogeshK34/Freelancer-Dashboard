@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   BarChart,
   Briefcase,
@@ -16,6 +16,8 @@ import {
   LogOut,
   User,
   CreditCard,
+  HomeIcon,
+  DollarSign,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -27,11 +29,13 @@ import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 
 const sidebarItems = [
+  { name: "Home", href: "/", icon: HomeIcon },
   { name: "Dashboard", href: "/dashboard", icon: BarChart },
   { name: "Projects", href: "/projects", icon: Briefcase },
   { name: "Clients", href: "/clients", icon: Users },
   { name: "Settings", href: "/settings", icon: Settings },
   { name: "Profile", href: "/profile", icon: User },
+  { name: "Pricing", href: "/pricing", icon: DollarSign },
 ];
 
 export function Sidebar() {
@@ -42,6 +46,7 @@ export function Sidebar() {
   const [isDesktopOpen, setIsDesktopOpen] = useState(true);
   const { user } = useAuth();
   const { toast } = useToast();
+  const router = useRouter();
 
   const toggleSidebar = () => setIsDesktopOpen(!isDesktopOpen);
 
@@ -57,6 +62,7 @@ export function Sidebar() {
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
+      router.push("/auth");
       toast({
         title: "Logged out successfully",
         description: "You have been logged out of your account.",

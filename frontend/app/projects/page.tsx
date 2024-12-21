@@ -67,6 +67,61 @@ interface Project {
   github_link?: string;
 }
 
+const predefinedProjects: Project[] = [
+  {
+    id: "pre-1",
+    user_id: "system",
+    name: "E-commerce Platform",
+    description:
+      "A fully-featured online store with product management, cart, and checkout functionality.",
+    status: "Completed",
+    start_date: "2023-01-15",
+    end_date: "2023-04-30",
+    client: "TechRetail Inc.",
+    budget: 15000,
+    hourly_rate: 75,
+    estimated_hours: 200,
+    created_at: "2023-01-10",
+    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+    progress: 100,
+    time_spent: 210,
+    client_avatar: "/avatar5.jpg?height=50&width=50&text=TR",
+    team: [
+      { name: "Alice", avatar: "/avatar.jpg?height=40&width=40&text=A" },
+      { name: "Bob", avatar: "/avatar1.jpg?height=40&width=40&text=B" },
+    ],
+    image: "/projectimage3.png",
+    live_link: "https://example-ecommerce.com",
+    github_link: "https://github.com/example/ecommerce-platform",
+  },
+  {
+    id: "pre-2",
+    user_id: "system",
+    name: "Task Management App",
+    description:
+      "A collaborative task management application with real-time updates and team features.",
+    status: "In Progress",
+    start_date: "2023-05-01",
+    end_date: null,
+    client: "ProductiveCo",
+    budget: 10000,
+    hourly_rate: 70,
+    estimated_hours: 150,
+    created_at: "2023-04-25",
+    technologies: ["Vue.js", "Firebase", "Tailwind CSS"],
+    progress: 60,
+    time_spent: 90,
+    client_avatar: "/avatar4.jpg?height=50&width=50&text=PC",
+    team: [
+      { name: "Charlie", avatar: "/avatar2.jpg?height=40&width=40&text=C" },
+      { name: "Diana", avatar: "/avatar3.jpg?height=40&width=40&text=D" },
+    ],
+    image: "/projectimage1.jpg?height=300&width=400&text=Task+Management+App",
+    live_link: "https://example-taskmanager.com",
+    github_link: "https://github.com/example/task-management-app",
+  },
+];
+
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -91,7 +146,7 @@ export default function ProjectsPage() {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setProjects(data || []);
+      setProjects([...predefinedProjects, ...(data || [])]);
     } catch (error) {
       toast({
         title: "Error",
@@ -122,7 +177,7 @@ export default function ProjectsPage() {
           <h1 className="text-3xl font-bold">Projects</h1>
           <Button onClick={() => setShowForm(true)}>
             <PlusCircle className="mr-2 h-4 w-4" />
-            New Project
+            Add Your Project
           </Button>
         </motion.div>
 
@@ -163,7 +218,7 @@ export default function ProjectsPage() {
                     <Image
                       src={
                         project.image ||
-                        "/placeholder.svg?height=200&width=400&text=Project"
+                        "/placeholder.svg?height=300&width=400&text=Project"
                       }
                       alt={project.name}
                       className="w-full h-48 sm:h-64 object-cover rounded-t-lg"

@@ -4,35 +4,35 @@ export function AnimatedTestimonialsDemo() {
   const testimonials = [
     {
       quote:
-        "Managing my expenses has never been easier. This app helped me save more by showing exactly where my money was going.",
+        "This freelance dashboard made managing my clients and projects effortless. It’s a must-have tool for any freelancer.",
       name: "Walter White",
       designation: "Chemistry Teacher at Albuquerque High School",
       src: "https://th.bing.com/th/id/R.c37ec7b017b3ee60ca54cf3ed6d5bfd2?rik=4wFwAVhd9Se5fg&riu=http%3a%2f%2fbaltimorepostexaminer.com%2fwp-content%2fuploads%2fWalter-White_FB.jpg&ehk=8%2fCI5P6ZyQ1Zj0J1%2bGgH4zUu5H2oQztI6ixTMJ0mppg%3d&risl=&pid=ImgRaw&r=0",
     },
     {
       quote:
-        "The intuitive design made budgeting a breeze. I finally feel in control of my finances thanks to this app.",
+        "The insights provided by this dashboard have revolutionized how I track my freelance earnings and expenses. Highly recommended!",
       name: "Tyler Durden",
-      designation: "CTO designationat Fig**Cl**",
+      designation: "CTO at Fig**Cl**",
       src: "https://wallpapercave.com/wp/wp2657416.jpg",
     },
     {
       quote:
-        "Tracking expenses used to be a hassle. Now I can do it on the go, and it’s so simple to analyze my spending habits.",
+        "Having all my freelance projects and deadlines in one place is a game-changer. I can focus more on delivering quality work.",
       name: "Thomas Shelby",
       designation: "Owner of Garrison Pub",
       src: "https://wallpapercave.com/wp/wp4966941.jpg",
     },
     {
       quote:
-        "The detailed reports and spending insights helped me cut down on unnecessary expenses. It's a game-changer for anyone serious about saving.",
+        "The client management features are top-notch. This dashboard has streamlined my entire freelance workflow.",
       name: "Professor Snape",
       designation: "Teacher at Hogwarts",
       src: "https://wallpaperaccess.com/full/1585633.jpg",
     },
     {
       quote:
-        "Finally, an expense tracker that delivers what it promises. The reminders and budget tools have been lifesavers for my financial goals.",
+        "The time tracking and invoicing tools in this dashboard have saved me countless hours. It’s a freelancer’s best friend.",
       name: "Bruce Wayne",
       designation: "Philanthropist and Entrepreneur",
       src: "https://images.hdqwalls.com/download/the-batman-robert-pattinson-4k-zt-2560x1600.jpg",
