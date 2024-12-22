@@ -27,6 +27,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { Logo } from "./Logo";
 
 const sidebarItems = [
   { name: "Home", href: "/", icon: HomeIcon },
@@ -130,8 +131,8 @@ export function Sidebar() {
                 href="/"
                 onClick={() => setIsMobileOpen(false)}
               >
-                <BarChart className="h-6 w-6 text-primary" />
-                <span className="ml-2 text-lg font-semibold">FreelancePro</span>
+                <Logo />
+                {/* <span className="ml-2 text-lg font-semibold">FreelancePro</span> */}
               </Link>
             </div>
             <nav className="flex-1 overflow-y-auto p-4">
