@@ -17,22 +17,27 @@ import {
 } from "@/components/ui/card";
 import { RadarChartDemo } from "@/components/dashboard/radar-chart";
 import { TooltipChartDemo } from "@/components/dashboard/tooltip-chart";
-import { DonutChartDemo } from "@/components/dashboard/donut-chart";
 import { BrowserChartDemo } from "@/components/dashboard/browser-chart";
 import { ChartThemeProvider } from "@/components/dashboard/chart-theme-provider";
 import { ThemeSelector } from "@/components/dashboard/theme-selector";
 import { useChartTheme } from "@/components/dashboard/chart-theme-provider";
 import { StatsSection } from "@/components/stats-section";
+import { PieChartDemo } from "@/components/dashboard/pie-chart";
+import { WorkflowSection } from "@/components/workflow-section";
+import { Newsletter } from "@/components/newsletter";
 
 export default function LandingPage() {
   return (
     <ChartThemeProvider>
       <div className="flex flex-col min-h-screen bg-background text-foreground">
-        <main className="flex-grow relative bg-muted">
+        <main className="flex-grow relative">
+          <div className="p-4"></div>
           <HeroSection />
           <StatsSection />
           <InsightsSection />
+          <WorkflowSection />
           <IntegrationSection />
+          <Newsletter />
         </main>
 
         <footer className="border-t border-border/40 bg-muted">
@@ -233,11 +238,12 @@ function InsightsSection() {
           >
             <Card>
               <CardHeader>
-                <CardTitle>Client Distribution</CardTitle>
-                <CardDescription>Breakdown of your client base</CardDescription>
+                <CardTitle>Projects Distribution</CardTitle>
+                <CardDescription>Breakdown of clients projects</CardDescription>
               </CardHeader>
               <CardContent>
-                <DonutChartDemo />
+                {/* <AreaChartDemo variant="icons" /> */}
+                <PieChartDemo />
               </CardContent>
             </Card>
           </motion.div>

@@ -7,97 +7,55 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartContainer } from "@/components/ui/chart";
-import { Pie, PieChart, Cell } from "recharts";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { useChartTheme } from "./chart-theme-provider";
 
 const data = [
-  { name: "Chrome", value: 400 },
-  { name: "Safari", value: 300 },
-  { name: "Firefox", value: 250 },
-  { name: "Edge", value: 175 },
+  { name: "Jan", total: 1200 },
+  { name: "Feb", total: 2100 },
+  { name: "Mar", total: 1800 },
+  { name: "Apr", total: 2400 },
+  { name: "May", total: 2800 },
+  { name: "Jun", total: 3200 },
 ];
 
-export function DonutChartDemo() {
+export function BarChartDemo() {
   const { getColors } = useChartTheme();
   const colors = getColors();
-  const CHART_COLORS = [
-    colors.primary,
-    colors.secondary,
-    colors.accent,
-    colors.muted,
-  ];
-
-  const total = data.reduce((sum, entry) => sum + entry.value, 0);
 
   return (
     <Card style={{ background: colors.background }}>
       <CardHeader>
         <CardTitle className="text-lg" style={{ color: colors.foreground }}>
-          Pie Chart - Donut with Text
+          Monthly Revenue
         </CardTitle>
         <CardDescription style={{ color: colors.muted }}>
           January - June 2024
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer
-          config={{
-            value: {
-              label: "Visitors",
-              color: colors.primary,
-            },
-          }}
-        >
-          <div className="relative">
-            <PieChart width={350} height={300}>
-              <Pie
-                data={data}
-                cx={175}
-                cy={150}
-                innerRadius={60}
-                outerRadius={80}
-                paddingAngle={2}
-                dataKey="value"
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={CHART_COLORS[index % CHART_COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <text
-                x={175}
-                y={150}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                style={{
-                  fill: colors.foreground,
-                  fontSize: "24px",
-                  fontWeight: "bold",
-                }}
-              >
-                {total}
-              </text>
-              <text
-                x={175}
-                y={175}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                style={{ fill: colors.muted, fontSize: "14px" }}
-              >
-                Visitors
-              </text>
-            </PieChart>
-          </div>
-        </ChartContainer>
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={data}>
+            <XAxis
+              dataKey="name"
+              stroke={colors.muted}
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+            />
+            <YAxis
+              stroke={colors.muted}
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `$${value}`}
+            />
+            <Bar dataKey="total" fill={colors.primary} radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
         <div className="mt-4 text-center">
           <p className="text-sm" style={{ color: colors.muted }}>
-            Trending up by 5.2% this month ↗
-          </p>
-          <p className="text-xs" style={{ color: colors.muted }}>
-            Showing total visitors for the last 6 months
+            Trending up by 12.5% compared to last year
           </p>
         </div>
       </CardContent>

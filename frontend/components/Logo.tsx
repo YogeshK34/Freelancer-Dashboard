@@ -1,28 +1,68 @@
-import { motion } from "framer-motion";
+"use client";
 
-export function Logo() {
+import { motion } from "framer-motion";
+import { Shield } from "lucide-react";
+
+interface LogoProps {
+  size?: "sm" | "md" | "lg";
+  variant?: "default" | "white";
+}
+
+export function Logo({ size = "md", variant = "default" }: LogoProps) {
+  const sizes = {
+    sm: "h-6 w-6",
+    md: "h-8 w-8",
+    lg: "h-12 w-12",
+  };
+
+  const textSizes = {
+    sm: "text-lg",
+    md: "text-xl",
+    lg: "text-3xl",
+  };
+
   return (
-    <div className="flex items-center space-x-2">
-      <motion.svg
-        width="40"
-        height="40"
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+    <motion.div
+      className="flex items-center gap-2"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div
+        className="relative"
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <rect width="40" height="40" rx="8" fill="currentColor" />
-        <path
-          d="M20 8L28 12V20C28 25.6 24.6 30.4 20 32C15.4 30.4 12 25.6 12 20V12L20 8Z"
-          fill="white"
+        <Shield
+          className={`${sizes[size]} ${
+            variant === "white" ? "text-white" : "text-primary"
+          }`}
         />
-        <path
-          d="M18 22L16 20L17.4 18.6L18 19.2L20.6 16.6L22 18L18 22Z"
-          fill="currentColor"
-        />
-      </motion.svg>
-      <span className="text-xl font-bold">FreelancePro</span>
-    </div>
+        <motion.div
+          className={`absolute inset-0 ${
+            variant === "white" ? "text-white/20" : "text-primary/20"
+          }`}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <Shield className={sizes[size]} />
+        </motion.div>
+      </motion.div>
+      <motion.span
+        className={`font-bold ${textSizes[size]} ${
+          variant === "white" ? "text-white" : "text-foreground"
+        }`}
+        whileHover={{ scale: 1.02 }}
+      >
+        FreelancePro
+      </motion.span>
+    </motion.div>
   );
 }

@@ -49,7 +49,7 @@ export function RadarChartDemo() {
             },
           }}
         >
-          <RadarChart width={350} height={300} data={data}>
+          <RadarChart width={200} height={300} data={data}>
             <PolarGrid stroke={colors.muted} />
             <PolarAngleAxis dataKey="month" stroke={colors.foreground} />
             <PolarRadiusAxis stroke={colors.foreground} />

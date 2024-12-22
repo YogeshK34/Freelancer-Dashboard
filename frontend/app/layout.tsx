@@ -9,8 +9,12 @@ import "@/app/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Freelance Dashboard",
-  description: "Manage your freelance projects and clients efficiently",
+  title: "FreelancePro",
+  description: "Manage your freelance business with ease",
+  applicationName: "FreelancePro",
+  authors: [{ name: "Yogesh Khutwad" }],
+  keywords: ["freelance", "management", "dashboard", "projects", "clients"],
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

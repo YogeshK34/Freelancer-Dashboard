@@ -42,7 +42,7 @@ export function BrowserChartDemo() {
             },
           }}
         >
-          <BarChart width={350} height={300} data={data}>
+          <BarChart width={200} height={200} data={data}>
             <XAxis dataKey="browser" stroke={colors.muted} />
             <YAxis stroke={colors.muted} />
             <ChartTooltip />
