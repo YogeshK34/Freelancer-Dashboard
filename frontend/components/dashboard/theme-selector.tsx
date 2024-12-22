@@ -1,59 +1,41 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Palette,
-  Sun,
-  Moon,
-  Leaf,
-  Globe,
-  Mountain,
-  Diamond,
-} from "lucide-react";
+import { Sun, Moon, Leaf, Globe, Mountain, Diamond } from "lucide-react";
 import { useChartTheme } from "./chart-theme-provider";
+import { type Theme } from "./chart-theme-provider";
 
 export function ThemeSelector() {
   const { setTheme } = useChartTheme();
 
+  const themes: Array<{
+    name: string;
+    icon: typeof Sun;
+    value: Theme;
+  }> = [
+    { name: "Light", icon: Sun, value: "light" },
+    { name: "Dark", icon: Moon, value: "dark" },
+    { name: "Nature", icon: Leaf, value: "emerald" },
+    { name: "World", icon: Globe, value: "sapphire" },
+    { name: "Adventure", icon: Mountain, value: "palette" },
+    { name: "Premium", icon: Diamond, value: "midnight" },
+  ];
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Palette className="h-4 w-4" />
+    <div className="flex gap-2">
+      {themes.map((theme) => (
+        <Button
+          key={theme.value}
+          variant="outline"
+          size="icon"
+          onClick={() => setTheme(theme.value)}
+          title={theme.name}
+          className="h-8 w-8"
+        >
+          <theme.icon className="h-4 w-4" />
+          <span className="sr-only">{theme.name}</span>
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun className="h-4 w-4 mr-2" />
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon className="h-4 w-4 mr-2" />
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("emerald")}>
-          <Leaf className="h-4 w-4 mr-2" />
-          Nature
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("sapphire")}>
-          <Globe className="h-4 w-4 mr-2" />
-          World
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("palette")}>
-          <Mountain className="h-4 w-4 mr-2" />
-          Adventure
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("midnight")}>
-          <Diamond className="h-4 w-4 mr-2" />
-          Premium
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      ))}
+    </div>
   );
 }

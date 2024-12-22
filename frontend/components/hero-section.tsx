@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, BarChart2, Clock, DollarSign } from "lucide-react";
+import { ArrowRight, BarChart2, Clock, DollarSign, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
@@ -60,37 +69,43 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div
-            className="relative z-10 bg-card rounded-lg shadow-2xl p-6"
+            className="lg:w-1/2 grid grid-cols-2 gap-6"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <div className="grid grid-cols-2 gap-6">
-              <DashboardCard
-                icon={BarChart2}
-                title="Projects"
-                value="12"
-                trend="+3 this month"
-              />
-              <DashboardCard
-                icon={DollarSign}
-                title="Earnings"
-                value="$8,750"
-                trend="+15% vs last month"
-              />
-              <DashboardCard
-                icon={Clock}
-                title="Hours Tracked"
-                value="164h"
-                trend="23h this week"
-              />
-              <DashboardCard
-                icon={ArrowRight}
-                title="Active Clients"
-                value="5"
-                trend="2 new this month"
-              />
-            </div>
+            <DashboardCard
+              icon={BarChart2}
+              title="Projects"
+              value="12"
+              trend="+3 this month"
+              color="primary"
+              progress={65}
+            />
+            <DashboardCard
+              icon={DollarSign}
+              title="Earnings"
+              value="$8,750"
+              trend="+15% vs last month"
+              color="blue"
+              progress={78}
+            />
+            <DashboardCard
+              icon={Clock}
+              title="Hours Tracked"
+              value="164h"
+              trend="23h this week"
+              color="green"
+              progress={85}
+            />
+            <DashboardCard
+              icon={Users}
+              title="Active Clients"
+              value="5"
+              trend="2 new this month"
+              color="orange"
+              progress={70}
+            />
           </motion.div>
         </div>
       </div>
@@ -98,16 +113,45 @@ export function HeroSection() {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function DashboardCard({ icon: Icon, title, value, trend }: any) {
+function DashboardCard({
+  icon: Icon,
+  title,
+  value,
+  trend,
+  color,
+  progress,
+}: any) {
   return (
-    <div className="bg-card-foreground/5 p-4 rounded-lg ">
-      <div className="flex items-center justify-between mb-2">
-        <Icon className="text-primary h-6 w-6" />
-        <span className="text-xs text-muted-foreground">{title}</span>
-      </div>
-      <div className="text-2xl font-bold mb-1">{value}</div>
-      <div className="text-xs text-muted-foreground">{trend}</div>
-    </div>
+    <Card
+      className={`relative overflow-hidden bg-gradient-to-br from-${color}-50 to-background`}
+    >
+      <div
+        className={`absolute inset-0 bg-gradient-to-br from-${color}-500/10 to-${color}-500/5 rounded-lg`}
+      />
+      <CardHeader className="relative pb-2">
+        <div className="flex items-center justify-between">
+          <div className={`p-2 bg-${color}-500/10 rounded-lg`}>
+            <Icon className={`w-6 h-6 text-${color}-500`} />
+          </div>
+          <CardTitle className="text-lg">{title}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent className="relative pt-2">
+        <div className="text-3xl font-bold mb-1">{value}</div>
+        <div className="flex items-center justify-between mb-2">
+          <CardDescription>{trend}</CardDescription>
+          <ArrowRight className={`w-4 h-4 text-${color}-500`} />
+        </div>
+        <Progress value={progress} className={`h-1 bg-${color}-100`}>
+          <div
+            className={`h-full bg-${color}-500`}
+            style={{ width: `${progress}%` }}
+          />
+        </Progress>
+        <p className="text-xs text-muted-foreground mt-2">
+          {progress}% of target
+        </p>
+      </CardContent>
+    </Card>
   );
 }

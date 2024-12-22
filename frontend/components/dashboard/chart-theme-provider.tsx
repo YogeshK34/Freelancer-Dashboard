@@ -2,7 +2,13 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type Theme = "light" | "dark" | "sapphire" | "emerald" | "palette" | "midnight";
+export type Theme =
+  | "light"
+  | "dark"
+  | "sapphire"
+  | "emerald"
+  | "palette"
+  | "midnight";
 
 interface ThemeContextType {
   theme: Theme;

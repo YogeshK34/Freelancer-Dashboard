@@ -84,8 +84,11 @@ export function ClientAreaChart() {
   }, [timeRange]);
 
   return (
-    <Card style={{ background: colors.background }}>
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
+    <Card style={{ background: colors.background, borderColor: colors.border }}>
+      <CardHeader
+        className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row"
+        style={{ borderColor: colors.border }}
+      >
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle className="text-lg" style={{ color: colors.foreground }}>
             Client Growth
@@ -97,20 +100,41 @@ export function ClientAreaChart() {
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
             className="w-[160px] rounded-lg sm:ml-auto"
-            aria-label="Select a value"
+            aria-label="Select time range"
+            style={{
+              background: colors.background,
+              color: colors.foreground,
+              borderColor: colors.border,
+            }}
           >
             <SelectValue placeholder="Last 3 months" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl">
-            <SelectItem value="90d" className="rounded-lg">
-              Last 3 months
-            </SelectItem>
-            <SelectItem value="30d" className="rounded-lg">
-              Last 30 days
-            </SelectItem>
-            <SelectItem value="7d" className="rounded-lg">
-              Last 7 days
-            </SelectItem>
+          <SelectContent
+            className="rounded-xl"
+            style={{
+              background: colors.background,
+              borderColor: colors.border,
+            }}
+          >
+            {[
+              { value: "90d", label: "Last 3 months" },
+              { value: "30d", label: "Last 30 days" },
+              { value: "7d", label: "Last 7 days" },
+            ].map((option) => (
+              <SelectItem
+                key={option.value}
+                value={option.value}
+                className="rounded-lg"
+                style={
+                  {
+                    color: colors.foreground,
+                    "--select-item-hover-bg": colors.accent,
+                  } as React.CSSProperties
+                }
+              >
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </CardHeader>
@@ -162,7 +186,7 @@ export function ClientAreaChart() {
                   />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke={colors.muted} />
+              <CartesianGrid strokeDasharray="3 3" stroke={colors.border} />
               <XAxis
                 dataKey="date"
                 tickLine={false}
@@ -170,6 +194,7 @@ export function ClientAreaChart() {
                 tickMargin={8}
                 minTickGap={32}
                 stroke={colors.muted}
+                tick={{ fill: colors.foreground }}
                 tickFormatter={(value) => {
                   const date = new Date(value);
                   return date.toLocaleDateString("en-US", {
@@ -178,9 +203,14 @@ export function ClientAreaChart() {
                   });
                 }}
               />
-              <YAxis stroke={colors.muted} />
+              <YAxis stroke={colors.muted} tick={{ fill: colors.foreground }} />
               <ChartTooltip
                 cursor={false}
+                contentStyle={{
+                  background: colors.background,
+                  border: `1px solid ${colors.border}`,
+                  color: colors.foreground,
+                }}
                 content={
                   <ChartTooltipContent
                     labelFormatter={(value) => {
